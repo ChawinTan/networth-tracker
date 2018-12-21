@@ -1,9 +1,12 @@
+var connection = require('./DbFields');
 var express = require('express');
-var app = express();
 
-app.get('/', function (req, res) {
-    res.send('Hello World');
- });
+connection.connect(function(err) {
+    if (err) throw err
+    console.log('You are now connected...')
+  });
+
+var app = express();
 
  var server = app.listen(8081, function () {
     var host = server.address().address
