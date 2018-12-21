@@ -1,13 +1,18 @@
+var connection = require('./DbFields');
 var express = require('express');
+var bodyParser = require('body-parser');
+
+var userRoutes = require('./User/user');
+
 var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
-app.get('/', function (req, res) {
-    res.send('Hello World');
- });
+app.use('/users', userRoutes);
 
- var server = app.listen(8081, function () {
+var server = app.listen(8081, function () {
     var host = server.address().address
     var port = server.address().port
     
     console.log("Example app listening at http://%s:%s", host, port)
- });
+});
