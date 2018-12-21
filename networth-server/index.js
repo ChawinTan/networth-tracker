@@ -1,4 +1,3 @@
-var connection = require('./DbFields');
 var express = require('express');
 var bodyParser = require('body-parser');
 
