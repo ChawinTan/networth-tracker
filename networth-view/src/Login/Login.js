@@ -35,13 +35,23 @@ class Login extends Component {
             const url = 'http://localhost:8081/users/signin';
             fetch(url, {
                 method: 'post',
-                headers: { Accept: 'application/json' },
-                body: {
+                headers: { 
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
                     email: this.state.userEmail,
                     user_password: this.state.userPassword
-                }
+                })
             }).then(res => res.json())
-            .then(json => console.log(json))
+            .then(json => {
+                if (json === 'Wrong credentials') {
+                    this.setState({ validateLogin: false });
+                } else if (json === 'Sign in success') {
+                    this.setState({ validateLogin: true });
+                    console.log('Sign in success!!!');
+                }
+            })
         }
     }
 
