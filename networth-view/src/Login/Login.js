@@ -32,7 +32,16 @@ class Login extends Component {
         if ( !email || !password ) {
             this.setState({ validateLogin: false });
         } else {
-            
+            const url = 'http://localhost:8081/users/signin';
+            fetch(url, {
+                method: 'post',
+                headers: {'Content-Type':'application/json'},
+                body: {
+                    email: this.state.userEmail,
+                    user_password: this.state.userPassword
+                }
+            }).then(res => res.json)
+            .then(json => console.log(json));
         }
     }
 
