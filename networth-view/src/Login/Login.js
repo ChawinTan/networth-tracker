@@ -35,13 +35,13 @@ class Login extends Component {
             const url = 'http://localhost:8081/users/signin';
             fetch(url, {
                 method: 'post',
-                headers: {'Content-Type':'application/json'},
+                headers: { Accept: 'application/json' },
                 body: {
                     email: this.state.userEmail,
                     user_password: this.state.userPassword
                 }
-            }).then(res => res.json)
-            .then(json => console.log(json));
+            }).then(res => res.json())
+            .then(json => console.log(json))
         }
     }
 

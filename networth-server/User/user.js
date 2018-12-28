@@ -9,12 +9,12 @@ router.post('/signup', (req, res) => {
         if (err) throw(err);
         else {
             if (data[0].cnt > 0) {
-                res.send("Email already exist");
+                res.status(200).json("Email already exist");
             } else {
                 let insertUser = 'INSERT INTO users (email, user_password) VALUES (?,?);';
                 connection.query(insertUser, [req.body.email, req.body.user_password], ( err, result ) => {
                     if (err) throw err;
-                    res.send('User successfully signed up');
+                    res.status(200).json('User successfully signed up');
                 });
             }
         }
@@ -27,9 +27,9 @@ router.post('/signin', (req, res) => {
         if (err) throw(err);
         else {
             if (data[0].cnt === 1) {
-                res.send('Sign in success');
+                res.status(200).json('Sign in success');
             } else if (data[0].cnt === 0) {
-                res.send('Wrong credentials');
+                res.status(200).json('Wrong credentials');
             }
         }
     });
