@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Switch, Route, NavLink } from "react-router-dom";
 
 import Banner from '../Banner/Banner';
 import Login from '../Login/Login';
+import SignUp from '../SignUp/SignUp';
 import './App.css';
 
 class App extends Component {
@@ -9,7 +11,11 @@ class App extends Component {
     return (
       <div className="App">
         <Banner />
-        <Login />
+
+        <Switch>
+          <Route exact path={'/'} component={Login} />
+          <Route path={'/signup'} component={SignUp} />
+        </Switch>
       </div>
     );
   }
