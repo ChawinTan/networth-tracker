@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import './Login.css';
 
@@ -65,6 +66,9 @@ class Login extends Component {
                     { !this.state.validateLogin ?
                         <p>Please enter the correct email or password.</p> : null
                     }
+                    <div className='sign-up-link'>
+                        <p>New user? Sign up <NavLink to={'/signup'}>here</NavLink></p>
+                    </div>
                 </div>
             </div>
         );

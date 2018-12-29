@@ -33,3 +33,6 @@ p {
   color: red;
   font-size: 12px;
 }
+.sign-up-link p {
+  color: black;
+}
