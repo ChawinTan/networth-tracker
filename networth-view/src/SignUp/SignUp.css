@@ -22,3 +22,7 @@
 .signup-button:hover {
   background-color: green;
 }
+.signupform .wrapper p {
+  color: red;
+  margin: 0;
+}

@@ -29,10 +29,10 @@ input {
 .login-button:hover {
   background-color: green;
 }
-p {
+.loginform .wrapper p {
   color: red;
   font-size: 12px;
 }
-.sign-up-link p {
+.loginform .sign-up-link p {
   color: black;
 }
