@@ -11,7 +11,8 @@ class SignUp extends Component {
             userPassword: '',
             confirmPassword: '',
             validateEmail: true,
-            validatePassword: true
+            validatePassword: true,
+            existEmail: true
         }
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
@@ -40,12 +41,35 @@ class SignUp extends Component {
             this.setState({ validateEmail: false });
         }
 
-        if (password !== checkPassword) {
+        if ((password !== checkPassword) || !password) {
             this.setState({ validatePassword: false });
         }
 
-        else {
-            
+        else if (email && (password === checkPassword)) {
+            const url = 'http://localhost:8081/users/signup';
+            fetch(url,{
+                method: 'post',
+                headers: { 
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: this.state.userEmail,
+                    user_password: this.state.userPassword
+                })
+            }).then(res => res.json())
+            .then(json => {
+                if (json === 'Email already exist') {
+                    this.setState({ existEmail: false });
+                } else if (json === 'User successfully signed up') {
+                    this.setState({ 
+                        validateEmail: true,
+                        validatePassword: true, 
+                        existEmail: true
+                    });
+                    console.log('Signup success!');
+                }
+            });
         }
     }
 
@@ -57,8 +81,9 @@ class SignUp extends Component {
                     {!this.state.validateEmail ? <p>Email cannot be empty!</p> : null}
                     <input onChange={this.onChangePassword} type='password' placeholder='Enter your prefered password ...' />
                     <input onChange={this.onChangeConfirmPassword} type='password' placeholder='Confirm password ...' />
-                    {!this.state.validatePassword ? <p>Passwords do not match!</p> : null}
+                    {!this.state.validatePassword ? <p>Passwords do not match and cannot be empty!</p> : null}
                     <button onClick={this.onClickSignUp} className='signup-button'>Sign Me Up!</button>
+                    {!this.state.existEmail ? <p>Email already exist</p> : null}
                 </div>
             </div>
         );
