@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import  { Redirect } from 'react-router-dom';
 
 import './SignUp.css';
 
@@ -12,7 +13,8 @@ class SignUp extends Component {
             confirmPassword: '',
             validateEmail: true,
             validatePassword: true,
-            existEmail: true
+            existEmail: true,
+            redirect: false
         }
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
@@ -65,15 +67,18 @@ class SignUp extends Component {
                     this.setState({ 
                         validateEmail: true,
                         validatePassword: true, 
-                        existEmail: true
+                        existEmail: true,
+                        redirect: true
                     });
-                    console.log('Signup success!');
                 }
             });
         }
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to='/' />;
+        }
         return (
             <div className='signupform'>
                 <div className='wrapper'>
