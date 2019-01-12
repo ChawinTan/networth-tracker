@@ -27,4 +27,26 @@ router.post('/update-networth', (req, res) => {
     });
 });
 
+router.post('/delete-networth', (req, res) => {
+    let checkExist = 'SELECT COUNT(*) AS cnt FROM networth WHERE entry_date = ? and user_email = ?';
+    connection.query(checkExist, [req.body.entry_date, req.body.user_email], (err, data) => {
+        if (err) {
+            throw err;
+        } else {
+            if (data[0].cnt === 0) {
+                res.status(200).json('User email does not exist');
+            } else if (data[0].cnt === 1) {
+                let deleteEntry = `DELETE FROM networth WHERE entry_date=? and user_email=?`;
+                connection.query(deleteEntry, [req.body.entry_date, req.body.user_email], (err, data) => {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.status(200).json('Delete successful');
+                    }
+                });
+            }
+        }
+    });
+});
+
 module.exports = router;
