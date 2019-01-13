@@ -2,6 +2,18 @@ var express = require('express');
 var connection = require('../DbFields');
 var router = express.Router();
 
+router.get('/get-networth/:id', (req, res) => {
+
+    let getEntries = 'SELECT * FROM networth WHERE user_email = ?';
+    connection.query(getEntries, req.params.id, (err, data) => {
+        if (err) {
+            throw err;
+        } else {
+            res.status(200).json(data);
+        }
+    });
+});
+
 router.post('/update-networth', (req, res) => {
 
     let checkExist = 'SELECT COUNT(*) AS cnt FROM networth WHERE entry_date = ? and user_email = ?';
@@ -28,6 +40,7 @@ router.post('/update-networth', (req, res) => {
 });
 
 router.post('/delete-networth', (req, res) => {
+
     let checkExist = 'SELECT COUNT(*) AS cnt FROM networth WHERE entry_date = ? and user_email = ?';
     connection.query(checkExist, [req.body.entry_date, req.body.user_email], (err, data) => {
         if (err) {
