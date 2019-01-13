@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 import './Login.css';
 
@@ -10,7 +10,8 @@ class Login extends Component {
         this.state = {
             userEmail: '',
             userPassword: '',
-            validateLogin: true
+            validateLogin: true,
+            redirect: false
         };
 
         this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -49,14 +50,19 @@ class Login extends Component {
                 if (json === 'Wrong credentials') {
                     this.setState({ validateLogin: false });
                 } else if (json === 'Sign in success') {
-                    this.setState({ validateLogin: true });
-                    console.log('Sign in success!!!');
+                    this.setState({ 
+                        validateLogin: true,
+                        redirect: true
+                    });
                 }
             })
         }
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to='/networth' />;
+        }
         return (
             <div className='loginform'>
                 <div className='wrapper'>
