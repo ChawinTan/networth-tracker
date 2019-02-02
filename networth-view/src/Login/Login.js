@@ -27,6 +27,21 @@ class Login extends Component {
         this.setState({ userPassword: event.target.value });
     }
 
+    getNetworth() {
+        const email = this.state.userEmail;
+  
+        const url =  `http://localhost:8081/networth/get-networth/${email}`;
+
+        fetch(url, {
+            method: 'get',
+            headers: { 
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .then(json => console.log(json))
+    }
+
     userLogin() {
         const email = this.state.userEmail;
         const password = this.state.userPassword;
@@ -55,6 +70,7 @@ class Login extends Component {
                         redirect: true
                     });
                     this.props.saveUserDetail(email);
+                    this.getNetworth();
                 }
             })
         }
