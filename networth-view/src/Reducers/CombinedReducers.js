@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 
-import saveUserDetailReducer from './UserReducer';
+import networthReducer from './NetworthReducer';
 
 const combinedReducers = combineReducers({
-    saveUserDetailReducer
+    networthReducer
 });
 
 export default combinedReducers;

@@ -54,7 +54,6 @@ class Login extends Component {
                         validateLogin: true,
                         redirect: true
                     });
-                    this.props.saveUserDetail(email);
                 }
             })
         }

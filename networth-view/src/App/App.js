@@ -14,18 +14,18 @@ class App extends Component {
         <Banner />
 
         <Switch>
-          <Route exact path={'/'}
-           render={
-             props => (
-               <Login
-               saveUserDetail={(email) => {
-                 this.props.saveUserDetail(email);
-               }}
-                />
-             )
-           } />
+          <Route exact path={'/'} component={Login} />
           <Route path={'/signup'} component={SignUp} />
-          <Route path={'/networth'} component={Networth} />
+          <Route path={'/networth'} 
+            render={
+              props => (
+                <Networth 
+                saveUserNetworth={(networth) => {
+                  this.props.saveUserNetworth(networth);
+                }}
+                 />
+              )
+            } />
         </Switch>
       </div>
     );

@@ -4,13 +4,6 @@ import { withRouter } from "react-router-dom";
 import './networth.css';
 
 class Networth extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            networth: []
-        }
-    }
 
     componentWillMount() {
         this.getNetworth();
@@ -28,13 +21,16 @@ class Networth extends Component {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-        .then(json => this.setState({ networth: json }))
+        .then(json => this.props.saveUserNetworth(json))
     }
 
     render() {
         return (
             <div className='networth'>
-                hello
+                <div className="buttons">
+                    <button>Manage Entries</button>
+                    <button>DashBoard</button>
+                </div>
             </div>
         );
     }

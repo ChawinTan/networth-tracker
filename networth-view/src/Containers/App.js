@@ -1,19 +1,19 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { saveUserDetail } from '../Actions/SaveUserDetail';
+import { saveUserNetworth } from '../Actions/SaveUserNetworth';
 import App from '../App/App';
 
 export const mapStateToProps = state => {
     return {
-        email: state.saveUserDetailReducer,
+        networth: state.networthReducer
     };
 };
 
 export const mapDispatchToProps = dispatch => {
     return {
-        saveUserDetail: email => {
-            dispatch(saveUserDetail(email));
+        saveUserNetworth: networth => {
+            dispatch(saveUserNetworth(networth));
         }
     };
 }
