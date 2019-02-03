@@ -6,7 +6,7 @@ import App from '../App/App';
 
 export const mapStateToProps = state => {
     return {
-        email: state.saveUserDetailReducer
+        email: state.saveUserDetailReducer,
     };
 };
 

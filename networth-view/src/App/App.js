@@ -25,13 +25,7 @@ class App extends Component {
              )
            } />
           <Route path={'/signup'} component={SignUp} />
-          <Route path={'/networth'} 
-          render={props => (
-            <Networth
-              email={this.props.email}
-            />
-            )
-          } />
+          <Route path={'/networth'} component={Networth} />
         </Switch>
       </div>
     );
