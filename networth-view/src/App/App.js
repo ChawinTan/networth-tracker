@@ -20,6 +20,7 @@ class App extends Component {
             render={
               props => (
                 <Networth 
+                networth={this.props.networth}
                 saveUserNetworth={(networth) => {
                   this.props.saveUserNetworth(networth);
                 }}
