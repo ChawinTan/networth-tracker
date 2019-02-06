@@ -62,7 +62,16 @@ class Networth extends Component {
                     </div>
                     {
                         this.state.manage ? 
-                        <div>
+                        <div className="display">
+                            <div className="title">
+                                <div>Entry Date</div>
+                                <div>User</div>
+                                <div>Cash</div>
+                                <div>Investments</div>
+                                <div>Other Assets</div>
+                                <div>Total</div>
+                            </div>
+                            <hr />
                             {this.state.networth.map((entry, index) => {
                                 return <Entry 
                                 entryDate={entry.entry_date}
