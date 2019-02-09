@@ -25,6 +25,7 @@ class Networth extends Component {
         this.onChangeInvestments = this.onChangeInvestments.bind(this);
         this.onChangeOtherAssets = this.onChangeOtherAssets.bind(this);
         this.onChangeTotal = this.onChangeTotal.bind(this);
+        this.addNewEntry = this.addNewEntry.bind(this);
     }
 
     componentWillMount() {
@@ -55,14 +56,53 @@ class Networth extends Component {
         this.setState({ total: event.target.value });
     }
 
+    addNewEntry(e) {
+        e.preventDefault();
+        const entry = {
+            entry_date: this.state.entryDate,
+            user_email: this.state.user,
+            cash: this.state.cash,
+            investments: this.state.investments,
+            other_assets: this.state.otherAssets,
+            total: this.state.total
+        };
+        const url =  `http://localhost:8081/networth/update-networth`;
+        if(this.state.user === this.props.location.state.email) {
+            fetch(url, {
+                method: 'post',
+                headers: { 
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(entry)
+            }).then(response => response.json())
+            .then(json => {
+                if(json === 'Cannot update') {
+                    alert('Cannot have entries on the same date!');
+                } else {
+                    this.setState({ 
+                        networth: [...this.state.networth, entry],
+                        user: '',
+                        cash: '',
+                        investments: '',
+                        otherAssets: '',
+                        total: ''
+                    });
+                }
+            });
+        } else {
+            alert('You have entered the wrong user name');
+        }
+    }
+
     parseDate(entries) {
         return entries.map(entry => {
             let date = new Date(entry.entry_date);
 
             return { ...entry, entry_date: 
                 date.getFullYear().toString() + '-' +
-                date.getMonth().toString() + '-' +
-                date.getDay().toString() };
+                (date.getMonth() + 1).toString() + '-' +
+                date.getDate().toString() };
         });
     }
 
@@ -100,13 +140,13 @@ class Networth extends Component {
                         this.state.manage ? 
                         <div className="display">
                             <div className="title">
-                                <div>Entry Date<input type="date" onChange={this.onChangeDate} /></div>
-                                <div>User<input onChange={this.onChangeUser}/></div>
-                                <div>Cash<input onChange={this.onChangeCash}/></div>
-                                <div>Investments<input onChange={this.onChangeInvestments}/></div>
-                                <div>Other Assets<input onChange={this.onChangeOtherAssets}/></div>
-                                <div>Total<input onChange={this.onChangeTotal}/></div>
-                                <div>Actions<input type='button' value="Add" className="add" /></div>
+                                <div>Entry Date<input type="date" onChange={this.onChangeDate}/></div>
+                                <div>User<input onChange={this.onChangeUser} value={this.state.user}/></div>
+                                <div>Cash<input onChange={this.onChangeCash} value={this.state.cash}/></div>
+                                <div>Investments<input onChange={this.onChangeInvestments} value={this.state.investments}/></div>
+                                <div>Other Assets<input onChange={this.onChangeOtherAssets} value={this.state.otherAssets}/></div>
+                                <div>Total<input onChange={this.onChangeTotal} value={this.state.total}/></div>
+                                <div>Actions<input type='button' value="Add" className="add" onClick={this.addNewEntry} /></div>
                             </div>
                             <hr />
                             {this.state.networth.map((entry, index) => {
