@@ -1,6 +1,6 @@
 .entry {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   background-color: #ffbf00;
   opacity: 0.8;
   padding: 0 1rem;

@@ -11,12 +11,48 @@ class Networth extends Component {
         this.state = {
             manage: true,
             charts: false,
-            networth: []
+            networth: [],
+            entryDate: '',
+            user: '',
+            cash: '',
+            investments: '',
+            otherAssets: '',
+            total: ''
         };
+        this.onChangeDate = this.onChangeDate.bind(this);
+        this.onChangeUser = this.onChangeUser.bind(this);
+        this.onChangeCash = this.onChangeCash.bind(this);
+        this.onChangeInvestments = this.onChangeInvestments.bind(this);
+        this.onChangeOtherAssets = this.onChangeOtherAssets.bind(this);
+        this.onChangeTotal = this.onChangeTotal.bind(this);
     }
 
     componentWillMount() {
         this.getNetworth();
+    }
+
+    onChangeDate(event) {
+        this.setState({ entryDate: event.target.value });
+    }
+
+    onChangeUser(event) {
+        this.setState({ user: event.target.value });
+    }
+
+    onChangeCash(event) {
+        this.setState({ cash: event.target.value });
+    }
+
+    onChangeInvestments(event) {
+        this.setState({ investments: event.target.value });
+    }
+
+    onChangeOtherAssets(event) {
+        this.setState({ otherAssets: event.target.value });
+    }
+
+    onChangeTotal(event) {
+        this.setState({ total: event.target.value });
     }
 
     parseDate(entries) {
@@ -64,12 +100,13 @@ class Networth extends Component {
                         this.state.manage ? 
                         <div className="display">
                             <div className="title">
-                                <div>Entry Date</div>
-                                <div>User</div>
-                                <div>Cash</div>
-                                <div>Investments</div>
-                                <div>Other Assets</div>
-                                <div>Total</div>
+                                <div>Entry Date<input type="date" onChange={this.onChangeDate} /></div>
+                                <div>User<input onChange={this.onChangeUser}/></div>
+                                <div>Cash<input onChange={this.onChangeCash}/></div>
+                                <div>Investments<input onChange={this.onChangeInvestments}/></div>
+                                <div>Other Assets<input onChange={this.onChangeOtherAssets}/></div>
+                                <div>Total<input onChange={this.onChangeTotal}/></div>
+                                <div>Actions<input type='button' value="Add" className="add" /></div>
                             </div>
                             <hr />
                             {this.state.networth.map((entry, index) => {
