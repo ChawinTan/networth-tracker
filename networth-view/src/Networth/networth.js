@@ -56,6 +56,12 @@ class Networth extends Component {
         this.setState({ total: event.target.value });
     }
 
+    sortEntryByDate(entries) {
+        return entries.sort((a, b) => {
+            return new Date(b.entry_date) - new Date(a.entry_date);
+        });
+    }
+
     addNewEntry(e) {
         e.preventDefault();
         const entry = {
@@ -80,8 +86,9 @@ class Networth extends Component {
                 if(json === 'Cannot update') {
                     alert('Cannot have entries on the same date!');
                 } else {
+                    const updatedNetworth = [...this.state.networth, entry]
                     this.setState({ 
-                        networth: [...this.state.networth, entry],
+                        networth: this.sortEntryByDate(updatedNetworth),
                         user: '',
                         cash: '',
                         investments: '',
@@ -125,7 +132,10 @@ class Networth extends Component {
         .then(json => {
             return this.parseDate(json);
         })
-        .then(json => this.setState({ networth: json }));
+        .then(json => {
+            const sortedNetworth = this.sortEntryByDate(json);
+            this.setState({ networth: sortedNetworth });
+        });
     }
 
     render() {
