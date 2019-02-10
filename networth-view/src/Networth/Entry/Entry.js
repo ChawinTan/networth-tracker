@@ -12,7 +12,6 @@ class Entry extends Component {
                 <h4>${this.props.investments}</h4>
                 <h4>${this.props.otherAssets}</h4>
                 <h4>${this.props.total}</h4>
-                <button>Delete Entry</button>
             </div>
         );
     }

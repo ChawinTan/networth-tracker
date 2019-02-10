@@ -160,15 +160,20 @@ class Networth extends Component {
                             </div>
                             <hr />
                             {this.state.networth.map((entry, index) => {
-                                return <Entry 
-                                entryDate={entry.entry_date}
-                                userEmail={entry.user_email}
-                                cash={entry.cash}
-                                investments={entry.investments}
-                                otherAssets={entry.other_assets}
-                                total={entry.total}
-                                key={index}
-                                />;
+                                return <div className="entries">
+                                        <Entry 
+                                    entryDate={entry.entry_date}
+                                    userEmail={entry.user_email}
+                                    cash={entry.cash}
+                                    investments={entry.investments}
+                                    otherAssets={entry.other_assets}
+                                    total={entry.total}
+                                    key={index}
+                                    />
+                                    <div className="delete-button">
+                                        <button>Delete Entry</button>
+                                    </div>
+                                </div>
                             })}
                         </div>
                         :
