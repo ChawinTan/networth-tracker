@@ -26,6 +26,7 @@ class Networth extends Component {
         this.onChangeOtherAssets = this.onChangeOtherAssets.bind(this);
         this.onChangeTotal = this.onChangeTotal.bind(this);
         this.addNewEntry = this.addNewEntry.bind(this);
+        this.deleteNetworth = this.deleteNetworth.bind(this);
     }
 
     componentWillMount() {
@@ -138,6 +139,30 @@ class Networth extends Component {
         });
     }
 
+    deleteNetworth(key) {
+        const entryToDelete = this.state.networth[key];
+        const parameters = { entry_date: entryToDelete.entry_date, user_email: entryToDelete.user_email };
+
+        const url = 'http://localhost:8081/networth/delete-networth';
+
+        fetch(url, {
+            method: 'post',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(parameters)
+        }).then(response => response.json())
+        .then(json => {
+            if (json === 'User email does not exist') {
+                alert('Something is wrong with your data!');
+            } else if (json === 'Delete successful') {
+                 this.state.networth.splice(key, 1);
+                 this.props.saveUserNetworth(this.state.networth);
+            }
+        })
+    }
+
     render() {
         return (
             <div>
@@ -160,7 +185,7 @@ class Networth extends Component {
                             </div>
                             <hr />
                             {this.state.networth.map((entry, index) => {
-                                return <div className="entries">
+                                return <div key={index} className="entries">
                                         <Entry 
                                     entryDate={entry.entry_date}
                                     userEmail={entry.user_email}
@@ -168,16 +193,15 @@ class Networth extends Component {
                                     investments={entry.investments}
                                     otherAssets={entry.other_assets}
                                     total={entry.total}
-                                    key={index}
                                     />
                                     <div className="delete-button">
-                                        <button>Delete Entry</button>
+                                        <button value={index} onClick={() => this.deleteNetworth(index)}>Delete Entry</button>
                                     </div>
                                 </div>
                             })}
                         </div>
                         :
-                        <p>no</p>
+                        <p>Dashboard .... coming soon</p>
                     }
                 </div>
             </div>
