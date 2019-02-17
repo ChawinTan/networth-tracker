@@ -27,6 +27,8 @@ class Networth extends Component {
         this.onChangeTotal = this.onChangeTotal.bind(this);
         this.addNewEntry = this.addNewEntry.bind(this);
         this.deleteNetworth = this.deleteNetworth.bind(this);
+        this.toggleManage = this.toggleManage.bind(this);
+        this.toggleDashboard = this.toggleDashboard.bind(this);
     }
 
     componentWillMount() {
@@ -55,6 +57,14 @@ class Networth extends Component {
 
     onChangeTotal(event) {
         this.setState({ total: event.target.value });
+    }
+
+    toggleManage() {
+        this.setState({ manage: true });
+    }
+
+    toggleDashboard() {
+        this.setState({ manage: false });
     }
 
     sortEntryByDate(entries) {
@@ -168,8 +178,8 @@ class Networth extends Component {
             <div>
                 <div className='networth'>
                     <div className="buttons">
-                        <button>Manage Entries</button>
-                        <button>DashBoard</button>
+                        <button onClick={this.toggleManage}>Manage Entries</button>
+                        <button onClick={this.toggleDashboard}>DashBoard</button>
                     </div>
                     {
                         this.state.manage ? 
