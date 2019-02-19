@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import Highcharts from 'highcharts';
 import HighchartsReact from 'react-highcharts';
 
 import './Dashboard.css';
