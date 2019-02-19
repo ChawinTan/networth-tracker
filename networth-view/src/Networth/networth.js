@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 
 import './networth.css';
 import Entry from './Entry/Entry';
+import DashBoard from '../DashBoard/Dashboard';
 
 class Networth extends Component {
     constructor(props) {
@@ -69,7 +70,7 @@ class Networth extends Component {
 
     sortEntryByDate(entries) {
         return entries.sort((a, b) => {
-            return new Date(b.entry_date) - new Date(a.entry_date);
+            return new Date(a.entry_date) - new Date(b.entry_date);
         });
     }
 
@@ -211,7 +212,7 @@ class Networth extends Component {
                             })}
                         </div>
                         :
-                        <p>Dashboard .... coming soon</p>
+                        <DashBoard networth={this.state.networth} />
                     }
                 </div>
             </div>
