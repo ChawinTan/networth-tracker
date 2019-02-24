@@ -3,3 +3,8 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   color: rgb(20, 18, 18);
 }
+.entry h4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
